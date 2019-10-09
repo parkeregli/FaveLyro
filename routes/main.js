@@ -58,4 +58,17 @@ router.post('/faves', (req, res) => {
   });
 });
 
+router.post('/faves/delete', (req, res) => {
+  const faveSongId = req.body.id;
+  const uri = 'http://localhost:3000/api/faveSongs/' + faveSongId;
+  request.delete(uri, (error, response, body) => {
+    if(error){
+      return console.error('delete failed:', error);
+    }else{
+      console.log('Delete successful! Server responded with:', body);
+      res.redirect('/faves');
+    }
+  });
+});
+
 module.exports = router;

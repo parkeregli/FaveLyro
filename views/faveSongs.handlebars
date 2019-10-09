@@ -1,7 +1,11 @@
 <h2>Favorite Songs List:</h2>
 {{#content}}
   <div>
-    {{this.full_title}}
-    <a href="{{this.lyric_url}}">Lyric Url</a>
+    <form action="/faves/delete" method="post">
+      <input type="hidden" id="id" name="id" value={{this._id}}></input>
+      {{this.full_title}}
+      <a href="{{this.lyric_url}}">Lyric Url</a>
+      <input type="submit" value="Delete"></input>
+    </form>
   </div>
 {{/content}}
