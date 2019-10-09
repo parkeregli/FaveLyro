@@ -13,6 +13,14 @@ const faveSongSchema = new mongoose.Schema({
     required: true,
     default: Date.now
   },
+  full_title: {
+    type: String,
+    required: true
+  },
+  lyric_url:{
+    type: String,
+    required: true
+  }
 });
 
 const faveSong = mongoose.model('faveSong', faveSongSchema);

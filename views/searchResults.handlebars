@@ -1,8 +1,14 @@
 {{#content}}
   {{#results}}
     <div>
-      <h3>{{result.full_title}}</h3>
-      <a href="{{result.url}}">Lyrics Link</a>
+      <form action="/faves" method="post">
+        <input type="hidden" id="api_id" name="api_id" value="{{result.id}}"></input>
+        <input type="hidden" id="full_title" name="full_title" value="{{result.full_title}}"></input>
+        <input type="hidden" id="lyric_url" name="lyric_url" value="{{result.url}}"></input>
+        <h3>{{result.full_title}}</h3>
+        <a href="{{result.url}}">Lyrics Link</a>
+        <input type="submit" value="Favorite this song!"></input>
+      </form>
     </div>
   {{/results}}
 {{/content}}

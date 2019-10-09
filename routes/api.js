@@ -84,9 +84,11 @@ router.get('/faveSongs/:_id', getFaveSong, (req, res) => {
 //Creating one faveSong
 
 router.post('/faveSongs', async (req, res) => {
+  console.log(req.body);
   const faveSong = new FaveSong({
       api_id: req.body.api_id,
-      comments: req.body.comments
+      full_title: req.body.full_title,
+      lyric_url: req.body.lyric_url
   });
   try{
     const newFaveSong = await faveSong.save();

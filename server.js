@@ -3,10 +3,15 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const exphbs = require('express-handlebars');
+const bodyParser = require('body-parser');
 
 const app = express();
 
+//Setting up Static Files
 app.use(express.static(__dirname + '/public'));
+
+//Setting up bodyParser
+app.use(bodyParser.urlencoded({ extended: true }));
 
 //Implementing Handlebars
 app.engine('handlebars', exphbs());
