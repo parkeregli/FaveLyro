@@ -6,9 +6,13 @@ const exphbs = require('express-handlebars');
 
 const app = express();
 
+app.use(express.static(__dirname + '/public'));
+
+//Implementing Handlebars
 app.engine('handlebars', exphbs());
 app.set('view engine', 'handlebars');
 
+//Configuring DB
 mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true });
 const db = mongoose.connection;
 db.on('error', (error) => console.error(error));
