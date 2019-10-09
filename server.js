@@ -6,6 +6,9 @@ const exphbs = require('express-handlebars');
 
 const app = express();
 
+app.engine('handlebars', exphbs());
+app.set('view engine', 'handlebars');
+
 mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true });
 const db = mongoose.connection;
 db.on('error', (error) => console.error(error));
