@@ -22,7 +22,7 @@ continue to use the package.
 ## Sources
 Here are some of the sources I used to research for my solution:
 
-https://www.youtube.com/watch?v=fgTGADljAeg
-https://github.com/jahrlin/genius-api
-https://www.restapitutorial.com/httpstatuscodes.html
-https://mongoosejs.com/docs/schematypes.html
+https://www.youtube.com/watch?v=fgTGADljAeg <br>
+https://github.com/jahrlin/genius-api <br>
+https://www.restapitutorial.com/httpstatuscodes.html <br>
+https://mongoosejs.com/docs/schematypes.html <br>
