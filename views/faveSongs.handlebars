@@ -7,5 +7,19 @@
       <a href="{{this.lyric_url}}">Lyric Url</a>
       <input type="submit" value="Delete"></input>
     </form>
+    <h4>Comments:</h4>
+    <form action="/faves/addComment" method="post">
+      <input type="hidden" id="id" name="id" value={{this._id}}></input>
+      <textarea name="comment"></textarea>
+      <input type="submit" value="Submit Comment"></input>
+    </form>
+    {{#comments}}
+      <p>{{this.text}} - {{this.date}}</p>
+      <form action="/faves/deleteComment" method="post">
+        <input type="hidden" id="id" name="id" value={{this._id}}></input>
+        <input type="submit" value="Delete Comment"></input>
+      </form>
+    {{/comments}}
   </div>
+  <br>
 {{/content}}

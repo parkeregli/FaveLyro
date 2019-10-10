@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+const faveSong = require('./faveSong');
 
 const commentSchema = new mongoose.Schema({
   text: {
@@ -7,10 +9,9 @@ const commentSchema = new mongoose.Schema({
   },
   date: {
     type: Date,
-    required: true,
     default: Date.now
   }
 });
 
-const comment = mongoose.model('commment', commentSchema);
-module.exports = exports = faveSong;
+const comment = mongoose.model('comment', commentSchema);
+module.exports = exports = comment;

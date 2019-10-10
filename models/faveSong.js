@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const comment = ('./comment');
+const commentSchema = ('./comment').schema;
 
 const faveSongSchema = new mongoose.Schema({
   api_id: {
@@ -20,7 +20,8 @@ const faveSongSchema = new mongoose.Schema({
   lyric_url:{
     type: String,
     required: true
-  }
+  },
+  comments: [{type: Schema.Types.ObjectId, ref: commentSchema}]
 });
 
 const faveSong = mongoose.model('faveSong', faveSongSchema);

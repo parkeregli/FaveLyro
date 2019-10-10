@@ -3,7 +3,9 @@ require('dotenv').config();
 const express = require('express');
 const router = express.Router();
 
+const Comment = require('../models/comment');
 const FaveSong = require('../models/faveSong');
+
 
 //Genius API Interface using genius-api
 //https://github.com/jahrlin/genius-api
@@ -69,7 +71,7 @@ router.get('/artist/:_id', (req, res) => {
 //Get faveSongs
 router.get('/faveSongs', async (req, res) => {
   try{
-    const faveSongs = await FaveSong.find();
+    const faveSongs = await FaveSong.find().populate({path: 'comments', model: 'comment'});
     res.json(faveSongs);
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -82,9 +84,7 @@ router.get('/faveSongs/:_id', getFaveSong, (req, res) => {
 })
 
 //Creating one faveSong
-
 router.post('/faveSongs', async (req, res) => {
-  console.log(req.body);
   const faveSong = new FaveSong({
       api_id: req.body.api_id,
       full_title: req.body.full_title,
@@ -109,15 +109,35 @@ router.delete('/faveSongs/:_id', getFaveSong, async (req, res) => {
   }
 });
 
-//Update a faveSong
-//Only can really update comments currently
-router.patch('/faveSongs/:_id', getFaveSong, async (req, res) => {
-  try{
+//Add comment to a FaveSong
+//_id = FaveSong _id
+router.post('/comment/:_id', getFaveSong, async (req, res) => {
+  if(req.body.commentText != null){
+    const comment = new Comment({
+      text: req.body.commentText,
+    });
 
+    try{
+      await comment.save();
+      await res.faveSong.comments.push(comment);
+      await res.faveSong.save();
+      res.json({ message: 'Comment added successfully'});
+    } catch (err) {
+      res.status(500).json({ message: err.message});
+    }
+  }else{
+    res.status(404).json({ message: "No comment text"});
+  }
+});
+
+router.delete('/comment/:_id', getComment, async (req, res) => {
+  try{
+    await res.comment.remove();
+    res.json({ message: 'Deleted comment'});
   } catch (err) {
     res.status(500).json({ message: err.message});
   }
-})
+});
 
 //Middleware function to retrieve a single FaveSong
 async function getFaveSong(req, res, next) {
@@ -131,5 +151,19 @@ async function getFaveSong(req, res, next) {
   }
 
   res.faveSong = faveSong;
+  next();
+}
+
+async function getComment(req, res, next) {
+  try{
+    comment = await Comment.findById(req.params._id);
+    if(comment == null){
+        return res.status(404).json( { message: 'Cannot find comment'})
+    }
+  } catch(err){
+    return res.status(500).json( { message: err.message });
+  }
+
+  res.comment = comment;
   next();
 }

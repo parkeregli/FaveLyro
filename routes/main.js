@@ -71,4 +71,41 @@ router.post('/faves/delete', (req, res) => {
   });
 });
 
+router.post('/faves/addComment', (req, res) => {
+  const faveSongId = req.body.id;
+  const options = {
+    url: 'http://localhost:3000/api/comment/' + faveSongId,
+    method: 'POST',
+    json: true,
+    body: {
+      commentText: req.body.comment
+    }
+  }
+
+  request.post(options, (error, response, body) => {
+    if(error){
+      return console.error('upload failed:', error);
+    }else{
+      console.log('Upload successful! Server responded with:', body);
+      res.redirect('/faves');
+    }
+  });
+
+});
+
+router.post('/faves/deleteComment', (req, res) => {
+  const commentId = req.body.id;
+  const uri = 'http://localhost:3000/api/comment/' + commentId;
+  request.delete(uri, (error, response, body) => {
+    if(error){
+      return console.error('delete failed:', error);
+    }else{
+      console.log('Delete successful! Server responded with:', body);
+      res.redirect('/faves');
+    }
+  });
+})
+
+
+
 module.exports = router;
