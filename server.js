@@ -28,8 +28,4 @@ app.use(express.json());
 //Setup routes
 require('./routes')(app);
 
-//Setting the main router to serve client templates
-const mainRouter = require('./routes/main');
-app.use('/', mainRouter);
-
 app.listen(3000, () => console.log('Server is listening on port 3000'));
