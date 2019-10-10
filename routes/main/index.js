@@ -1,13 +1,27 @@
-require('dotenv').config();
-
 const express = require('express');
 const MainRouter = express.Router();
 const request = require('request');
 
+/**
+* / - METHOD: GET
+*
+* @desc Serves the home page for the client
+*
+*/
 MainRouter.get('/', (req, res) => {
   res.render('home');
 });
 
+/**
+* / - METHOD: GET
+*
+* @desc Serves the search page for the client
+*
+* view: home.handlebars
+*
+* Concerns:
+* Not sure if it is best practice to hard code the api URI.
+*/
 MainRouter.get('/search', (req, res) => {
   const query = req.query.q;
   const apiCall = 'http://localhost:3000/api/genius/search/' + query;
@@ -23,6 +37,15 @@ MainRouter.get('/search', (req, res) => {
   });
 });
 
+/**
+* / - METHOD: GET
+*
+* @desc Serves the Faves page for the client that shows the list of FaveSongs
+*
+* view: faveSongs.handlebars
+* Concerns:
+* Not sure if it is best practice to hard code the api URI.
+*/
 MainRouter.get('/faves', (req, res) => {
   request('http://localhost:3000/api/faveSongs/', (error, response, body) => {
     if(error){
@@ -36,6 +59,15 @@ MainRouter.get('/faves', (req, res) => {
   });
 });
 
+/**
+* / - METHOD: POST
+*
+* @desc Client route to post a FaveSong to DB using the API
+*
+*
+* Concerns:
+* Not sure if it is best practice to hard code the api URI.
+*/
 MainRouter.post('/faves', (req, res) => {
   const options = {
     url: 'http://localhost:3000/api/faveSongs',
@@ -58,6 +90,15 @@ MainRouter.post('/faves', (req, res) => {
   });
 });
 
+/**
+* / - METHOD: POST
+*
+* @desc Client route to delete a FaveSong on DB using the API
+*
+*
+* Concerns:
+* Not sure if it is best practice to hard code the api URI.
+*/
 MainRouter.post('/faves/delete', (req, res) => {
   const faveSongId = req.body.id;
   const uri = 'http://localhost:3000/api/faveSongs/' + faveSongId;
@@ -71,6 +112,15 @@ MainRouter.post('/faves/delete', (req, res) => {
   });
 });
 
+/**
+* / - METHOD: POST
+*
+* @desc Client route to post a comment onto a FaveSong to DB using the API
+*
+*
+* Concerns:
+* Not sure if it is best practice to hard code the api URI.
+*/
 MainRouter.post('/faves/addComment', (req, res) => {
   const faveSongId = req.body.id;
   const options = {
@@ -93,6 +143,15 @@ MainRouter.post('/faves/addComment', (req, res) => {
 
 });
 
+/**
+* / - METHOD: POST
+*
+* @desc Client route to delete a comment on DB using the API
+*
+*
+* Concerns:
+* Not sure if it is best practice to hard code the api URI.
+*/
 MainRouter.post('/faves/deleteComment', (req, res) => {
   const commentId = req.body.id;
   const uri = 'http://localhost:3000/api/comment/' + commentId;
@@ -105,7 +164,5 @@ MainRouter.post('/faves/deleteComment', (req, res) => {
     }
   });
 })
-
-
 
 module.exports = MainRouter;
