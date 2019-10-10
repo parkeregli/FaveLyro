@@ -2,6 +2,10 @@
 
 This is an app that accesses the Genius API and then allows you to save favorite song and leave comments on them.
 
+In order to use this app you need a access token from the Genius API and insert it into the .env file as well as the location of your database.
+
+To install all the packages run npm init in your source folder.
+
 ## To Dos
 <ul>
   <li>Adding functionality to have favorite artists.</li>
