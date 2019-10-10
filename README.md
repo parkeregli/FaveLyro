@@ -9,6 +9,7 @@ This is an app that accesses the Genius API and then allows you to save favorite
   <li>Add a help page for API at /api.</li>
   <li>Provide more information to user about songs other than the title.</li>
   <li>Implement controllers to help the maintainability of the code base.</li>
+  <li>Implement some sort of unit testing</li>
 </ul>
     
 
