@@ -9,7 +9,7 @@
 const ApiRouter = require('express').Router();
 
 //API Entry
-//Maybe include help page here.
+//Maybe include help page here to show how to use API if enough time allows
 ApiRouter.get('/', (req, res) => {
   res.send('Hello World');
 });

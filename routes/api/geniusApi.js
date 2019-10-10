@@ -6,10 +6,15 @@ const GeniusRouter = express.Router();
 //Genius API Interface using genius-api
 //https://github.com/jahrlin/genius-api
 const geniusApi = require('genius-api');
+//You will either need to register an account on the genius api or use an existing token
 const genius = new geniusApi(process.env.GENIUS_CLIENT_ACCESS_TOKEN);
 
-//Search the Genius api
-//Arguments: Query - String
+/**
+* /api/genius/search/q - METHOD: GET
+*
+* @desc Gets a search result from the Genius API
+* @param String q - Search query
+*/
 GeniusRouter.get('/search/:q', (req, res) => {
   try{
     genius.search(req.params.q).then(function(response){
@@ -24,8 +29,12 @@ GeniusRouter.get('/search/:q', (req, res) => {
   }
 });
 
-//Get Song from Genius api
-//Arguments: SongId - Number
+/**
+* /api/genius/song/_id - METHOD: GET
+*
+* @desc Gets a specific song from the Genius API
+* @param String _id - Genius API song id
+*/
 GeniusRouter.get('/song/:_id', (req, res) => {
   try{
     genius.song(req.params._id).then(function(response){
@@ -40,8 +49,12 @@ GeniusRouter.get('/song/:_id', (req, res) => {
   }
 });
 
-//Get Artist from Genius api
-//Arguments: ArtistId - Number
+/**
+* /api/genius/artist/_id - METHOD: GET
+*
+* @desc Gets a specific artist from the Genius API
+* @param String _id - Genius API artist id
+*/
 GeniusRouter.get('/artist/:_id', (req, res) => {
   try{
     genius.artist(req.params._id).then(function(response){

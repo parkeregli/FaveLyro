@@ -4,8 +4,12 @@ const CommentRouter = express.Router();
 const Comment = require('../../models/comment');
 const FaveSong = require('../../models/faveSong');
 
-//Add comment to a FaveSong
-//_id = FaveSong _id
+/**
+* /api/comment/id - METHOD: POST
+*
+* @desc Creates a comment on a favorite FaveSong
+* @param string _id - FaveSong id
+*/
 CommentRouter.post('/:_id', getFaveSong, async (req, res) => {
   if(req.body.commentText != null){
     const comment = new Comment({
@@ -25,6 +29,12 @@ CommentRouter.post('/:_id', getFaveSong, async (req, res) => {
   }
 });
 
+/**
+* /api/comment/id - METHOD: DELETE
+*
+* @desc Deletes a comment on a favorite FaveSong
+* @param string _id - Comment id
+*/
 CommentRouter.delete('/:_id', getComment, async (req, res) => {
   try{
     await res.comment.remove();
@@ -34,6 +44,11 @@ CommentRouter.delete('/:_id', getComment, async (req, res) => {
   }
 });
 
+/**
+*
+* @desc Middleware function that gets a single comment based on ID
+* @param string _id - Comment id
+*/
 async function getComment(req, res, next) {
   try{
     comment = await Comment.findById(req.params._id);
@@ -48,7 +63,11 @@ async function getComment(req, res, next) {
   next();
 }
 
-//Middleware function to retrieve a single FaveSong
+/**
+*
+* @desc Middle ware function that gets a single FaveSong based on ID
+* @param string _id - FaveSong id 
+*/
 async function getFaveSong(req, res, next) {
   try{
     faveSong = await FaveSong.findById(req.params._id);
