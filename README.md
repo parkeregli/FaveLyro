@@ -1,5 +1,17 @@
 # FaveLyro
 
+This is an app that accesses the Genius API and then allows you to save favorite song and leave comments on them.
+
+## To Dos
+<ul>
+  <li>Adding functionality to have favorite artists.</li>
+  <li>Really take an in depth look into error handling.</li>
+  <li>Add a help page for API at /api.</li>
+  <li>Provide more information to user about songs other than the title.</li>
+  <li>Implement controllers to help the maintainability of the code base.</li>
+</ul>
+    
+
 ## Concerns
 I am using the genius-api package found here: https://github.com/jahrlin/genius-api
 This package has 3 known vulnerabilities according to NPM all involving the lodash package.
