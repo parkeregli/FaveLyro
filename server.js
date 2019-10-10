@@ -25,9 +25,8 @@ db.once('open', () => console.log('Connected to Database'));
 
 app.use(express.json());
 
-//Setting the Api Router
-const apiRouter = require('./routes/api');
-app.use('/api', apiRouter);
+//Setup routes
+require('./routes')(app);
 
 //Setting the main router to serve client templates
 const mainRouter = require('./routes/main');

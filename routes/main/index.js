@@ -1,16 +1,16 @@
 require('dotenv').config();
 
 const express = require('express');
-const router = express.Router();
+const MainRouter = express.Router();
 const request = require('request');
 
-router.get('/', (req, res) => {
+MainRouter.get('/', (req, res) => {
   res.render('home');
 });
 
-router.get('/search', (req, res) => {
+MainRouter.get('/search', (req, res) => {
   const query = req.query.q;
-  const apiCall = 'http://localhost:3000/api/search/' + query;
+  const apiCall = 'http://localhost:3000/api/genius/search/' + query;
   request(apiCall, (error, response, body) => {
     if(error){
       res.send(error);
@@ -23,8 +23,8 @@ router.get('/search', (req, res) => {
   });
 });
 
-router.get('/faves', (req, res) => {
-  request('http://localhost:3000/api/faveSongs', (error, response, body) => {
+MainRouter.get('/faves', (req, res) => {
+  request('http://localhost:3000/api/faveSongs/', (error, response, body) => {
     if(error){
       res.send(error);
     }else{
@@ -36,7 +36,7 @@ router.get('/faves', (req, res) => {
   });
 });
 
-router.post('/faves', (req, res) => {
+MainRouter.post('/faves', (req, res) => {
   const options = {
     url: 'http://localhost:3000/api/faveSongs',
     method: 'POST',
@@ -58,7 +58,7 @@ router.post('/faves', (req, res) => {
   });
 });
 
-router.post('/faves/delete', (req, res) => {
+MainRouter.post('/faves/delete', (req, res) => {
   const faveSongId = req.body.id;
   const uri = 'http://localhost:3000/api/faveSongs/' + faveSongId;
   request.delete(uri, (error, response, body) => {
@@ -71,7 +71,7 @@ router.post('/faves/delete', (req, res) => {
   });
 });
 
-router.post('/faves/addComment', (req, res) => {
+MainRouter.post('/faves/addComment', (req, res) => {
   const faveSongId = req.body.id;
   const options = {
     url: 'http://localhost:3000/api/comment/' + faveSongId,
@@ -93,7 +93,7 @@ router.post('/faves/addComment', (req, res) => {
 
 });
 
-router.post('/faves/deleteComment', (req, res) => {
+MainRouter.post('/faves/deleteComment', (req, res) => {
   const commentId = req.body.id;
   const uri = 'http://localhost:3000/api/comment/' + commentId;
   request.delete(uri, (error, response, body) => {
@@ -108,4 +108,4 @@ router.post('/faves/deleteComment', (req, res) => {
 
 
 
-module.exports = router;
+module.exports = MainRouter;
