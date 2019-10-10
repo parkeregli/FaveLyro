@@ -8,7 +8,7 @@ const faveSongSchema = new mongoose.Schema({
     required: true,
     unique: true
   },
-  faveDate:{
+  fave_date:{
     type: Date,
     required: true,
     default: Date.now
